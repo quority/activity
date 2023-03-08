@@ -120,13 +120,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@quority/fandom@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "@quority/fandom@npm:4.0.4"
+"@quority/fandom@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "@quority/fandom@npm:4.0.7"
   dependencies:
     "@quority/core": ^4.0.1
     "@sapphire/shapeshift": ^3.8.1
-  checksum: c213425300f80f30e6acbdcd0251dcb357805d6639506db42e5683619f6d129a78d249968bba05ddbb73b05caa25098480d57b441acbdf6f68ba4e6f5c0a0a64
+  checksum: 00f068d6c732eb09f9c3e1f7a856efc57f7274a403580cf4b5bbc2a414cd4404d43c76176e301b54e246f8145711ef796ff3580e4fa9b5c05ce41a070bd714e9
   languageName: node
   linkType: hard
 
@@ -135,7 +135,7 @@ __metadata:
   resolution: "@quority/template@workspace:."
   dependencies:
     "@quority/core": ^4.0.3
-    "@quority/fandom": ^4.0.4
+    "@quority/fandom": ^4.0.7
     "@types/fs-extra": 11.0.1
     "@types/mocha": 10.0.0
     "@types/node": 18.11.9

@@ -48,6 +48,6 @@
   },
   "dependencies": {
     "@quority/core": "^4.0.3",
-    "@quority/fandom": "^4.0.4"
+    "@quority/fandom": "^4.0.7"
   }
 }
