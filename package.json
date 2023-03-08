@@ -1,6 +1,6 @@
 {
-  "name": "@quority/template",
-  "version": "4.0.0",
+  "name": "@quority/activity",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
   "files": [
