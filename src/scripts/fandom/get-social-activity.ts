@@ -1,8 +1,18 @@
 import { DiscussionsAPI, Fandom } from '@quority/fandom'
 import type { Wiki } from '@quority/core'
 
+const hasDiscussions = async ( wiki: Wiki<Fandom> ): Promise<boolean> => {
+	const url = new URL( './wikia.php', wiki.api )
+	url.searchParams.set( 'controller', 'DiscussionPost' )
+	url.searchParams.set( 'method', 'getPosts' )
+	const { statusCode } = await wiki.request.raw( url, { method: 'HEAD' } )
+	return statusCode === 200
+}
+
 export const getSocialActivity = async ( wiki: Wiki, from: Date, to: Date ) => {
 	if ( !( wiki.platform instanceof Fandom ) ) return []
+	const discussions = await hasDiscussions( wiki as Wiki<Fandom> )
+	if ( !discussions ) return []
 
 	const fandom = wiki as Wiki<Fandom>
 	const controller = fandom.custom.wikia.DiscussionPostController
