@@ -35,4 +35,6 @@ export abstract class DiscussionsItem extends ActivityItem {
 	public isPost(): this is PostItem {
 		return this.containerType === DiscussionsAPI.ContainerTypes.Forum
 	}
+
+	public abstract getUrl(): URL
 }
