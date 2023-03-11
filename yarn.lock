@@ -113,7 +113,7 @@ __metadata:
   resolution: "@quority/activity@workspace:."
   dependencies:
     "@quority/core": ^4.0.3
-    "@quority/fandom": ^4.0.7
+    "@quority/fandom": ^4.0.8
     "@types/fs-extra": 11.0.1
     "@types/mocha": 10.0.0
     "@types/node": 18.11.9
@@ -130,7 +130,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@quority/core@npm:^4.0.1, @quority/core@npm:^4.0.3":
+"@quority/core@npm:^4.0.3":
   version: 4.0.3
   resolution: "@quority/core@npm:4.0.3"
   dependencies:
@@ -142,13 +142,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@quority/fandom@npm:^4.0.7":
-  version: 4.0.7
-  resolution: "@quority/fandom@npm:4.0.7"
+"@quority/fandom@npm:^4.0.8":
+  version: 4.0.8
+  resolution: "@quority/fandom@npm:4.0.8"
   dependencies:
-    "@quority/core": ^4.0.1
     "@sapphire/shapeshift": ^3.8.1
-  checksum: 00f068d6c732eb09f9c3e1f7a856efc57f7274a403580cf4b5bbc2a414cd4404d43c76176e301b54e246f8145711ef796ff3580e4fa9b5c05ce41a070bd714e9
+  peerDependencies:
+    "@quority/core": "*"
+  checksum: 16399150a46d21b9050ae578f649078a536adc9e3f0301748cf603d42ced946cb1adfc814639aa74d505a1969b448fb04a57ca9835d750b555892971aa78cfd7
   languageName: node
   linkType: hard
 
