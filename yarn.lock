@@ -127,6 +127,9 @@ __metadata:
     ts-dotenv: ^0.9.0
     tsup: ^6.5.0
     typescript: 4.8.4
+  peerDependencies:
+    "@quority/core": "*"
+    "@quority/fandom": "*"
   languageName: unknown
   linkType: soft
 

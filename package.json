@@ -16,6 +16,7 @@
   },
   "types": "dist/main.d.ts",
   "scripts": {
+    "build": "rimraf tsconfig.tsbuildinfo dist && yarn tsc --listEmittedFiles --incremental",
     "lint": "eslint src/ --ext .ts --cache",
     "lint:fix": "eslint src/ --fix --ext .ts --cache",
     "hooks": "husky install .github/husky"
@@ -28,6 +29,8 @@
   },
   "homepage": "https://github.com/quority/template#readme",
   "devDependencies": {
+    "@quority/core": "^4.0.3",
+    "@quority/fandom": "^4.0.7",
     "@types/fs-extra": "11.0.1",
     "@types/mocha": "10.0.0",
     "@types/node": "18.11.9",
@@ -46,8 +49,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@quority/core": "^4.0.3",
-    "@quority/fandom": "^4.0.7"
+  "peerDependencies": {
+    "@quority/core": "*",
+    "@quority/fandom": "*"
   }
 }
