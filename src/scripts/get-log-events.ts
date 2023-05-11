@@ -18,7 +18,10 @@ export const getLogEvents = async ( wiki: Wiki, from: Date, to: Date ): Promise<
 		'rights/rights',
 
 		// upload
-		'upload/upload', 'upload/overwrite', 'upload/revert'
+		'upload/upload', 'upload/overwrite', 'upload/revert',
+
+		// thanks
+		'thanks/thank'
 	] )
 
 	const activity = await wiki.queryList( {

@@ -5,6 +5,7 @@ import type { DeleteEventItem } from './DeleteEventItem'
 import type { MoveEventItem } from './MoveEventItem'
 import type { ProtectEventItem } from './ProtectEventItem'
 import type { RightsEventItem } from './RightsEventItem'
+import type { ThanksEventItem } from './ThanksEventItem'
 import type { UploadEventItem } from './UploadEventItem'
 
 export class LogEventsItem extends ActivityItem {
@@ -38,6 +39,10 @@ export class LogEventsItem extends ActivityItem {
 
 	public isRights(): this is RightsEventItem {
 		return this.data.type === 'rights'
+	}
+
+	public isThanks(): this is ThanksEventItem {
+		return this.data.type === 'thanks'
 	}
 
 	public isUpload(): this is UploadEventItem {
