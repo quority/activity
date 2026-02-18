@@ -1,1 +1,0 @@
-{"version":3,"file":"MoveEventItem.js","sourceRoot":"","sources":["../../../src/framework/logevents/MoveEventItem.ts"],"names":[],"mappings":";;;AAAA,mDAA+C;AAE/C,MAAa,aAAc,SAAQ,6BAAa;IAC/C,IAAW,IAAI;QACd,OAAO,IAAI,CAAC,IAAI,CAAC,KAAK,CAAA;IACvB,CAAC;IAED,IAAW,EAAE;QACZ,MAAM,EAAE,MAAM,EAAE,GAAG,IAAI,CAAC,IAEvB,CAAA;QACD,OAAO,MAAM,CAAC,YAAY,CAAA;IAC3B,CAAC;CACD;AAXD,sCAWC"}

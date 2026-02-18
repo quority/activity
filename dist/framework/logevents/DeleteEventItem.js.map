@@ -1,1 +1,0 @@
-{"version":3,"file":"DeleteEventItem.js","sourceRoot":"","sources":["../../../src/framework/logevents/DeleteEventItem.ts"],"names":[],"mappings":";;;AAAA,mDAA+C;AAE/C,MAAa,eAAgB,SAAQ,6BAAa;IAC1C,UAAU;QAChB,OAAO,IAAI,CAAC,IAAI,CAAC,MAAM,KAAK,QAAQ,CAAA;IACrC,CAAC;IAEM,WAAW;QACjB,OAAO,IAAI,CAAC,IAAI,CAAC,MAAM,KAAK,SAAS,CAAA;IACtC,CAAC;CACD;AARD,0CAQC"}

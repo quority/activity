@@ -1,19 +1,28 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./framework"), exports);
-__exportStar(require("./scripts"), exports);
+'use strict';
+
+var fandom = require('@quority/fandom');
+
+var u=(i=>(i[i.Discussions=0]="Discussions",i[i.LogEvents=1]="LogEvents",i[i.RecentChanges=2]="RecentChanges",i))(u||{}),c=class{wiki;constructor(t){this.wiki=t;}isDiscussions(){return this.type===0}isLogEvents(){return this.type===1}isRecentChanges(){return this.type===2}};var p=class extends c{type=0;data;constructor(t,s){super(t),this.data=s;}get containerType(){let t=this.data._embedded.thread?.[0];if(t){if(t.containerType===fandom.DiscussionsAPI.ContainerTypes.Post||t.containerType===fandom.DiscussionsAPI.ContainerTypes.Reply)throw new Error(`Unexpected container type: ${t.containerType}`)}else throw new Error("Unavailable thread.");return t.containerType}isComment(){return this.containerType===fandom.DiscussionsAPI.ContainerTypes.ArticleComment}isMessageWall(){return this.containerType===fandom.DiscussionsAPI.ContainerTypes.Wall}isPost(){return this.containerType===fandom.DiscussionsAPI.ContainerTypes.Forum}};var d=class extends p{get article(){return this.data._embedded.thread?.[0].containerId??""}getUrl(){let t=this.wiki.getUrl(this.article);return t.searchParams.set("commentId",this.data.threadId),this.data.isReply&&(t.hash=this.data.id),t}};var h=class extends p{get wall(){let{forumName:t}=this.data;return t.replace("Message Wall","").trim()}getUrl(){let t=this.wiki.getUrl(`Message Wall:${this.wall}`);return t.searchParams.set("threadId",this.data.threadId),this.data.isReply&&(t.hash=this.data.id),t}};var g=class extends p{get category(){let{forumName:t}=this.data;return t}getUrl(){let t=this.wiki.getUrl(`../f/p/${this.data.threadId}`);return this.data.isReply&&(t.pathname+=`/r/${this.data.id}`),t}};var r=class extends c{type=1;data;constructor(t,s){super(t),this.data=s;}get date(){return new Date(this.data.timestamp)}isBlock(){return this.data.type==="block"}isDelete(){return this.data.type==="delete"}isMove(){return this.data.type==="move"}isProtect(){return this.data.type==="protect"}isRights(){return this.data.type==="rights"}isThanks(){return this.data.type==="thanks"}isUpload(){return this.data.type==="upload"}};var y=class extends r{get expiryDate(){if(this.isBlocking()||this.isReblocking()){let{params:t}=this.data;if(t)return new Date(t.expiry)}return null}isBlocking(){return this.data.action==="block"}isReblocking(){return this.data.action==="reblock"}isUnblocking(){return this.data.action==="unblock"}};var f=class extends r{isDeleting(){return this.data.action==="delete"}isRestoring(){return this.data.action==="restore"}};var I=class extends r{get from(){return this.data.title}get to(){let{params:t}=this.data;return t.target_title}};var b=class extends r{isProtecting(){return this.data.action==="protect"}isModifying(){return this.data.action==="modify"}isUnprotecting(){return this.data.action==="unprotect"}};var v=class extends r{};var E=class extends r{};var x=class extends r{isUploading(){return this.data.action==="upload"}isOverwriting(){return this.data.action==="overwrite"}isReverting(){return this.data.action==="revert"}};var k=class extends c{type=2;data;constructor(t,s){super(t),this.data=s;}get date(){return new Date(this.data.timestamp)}get sizediff(){return this.data.newlen-this.data.oldlen}};var F=async e=>{let t=new URL("./wikia.php",e.api);t.searchParams.set("controller","DiscussionPost"),t.searchParams.set("method","getPosts");let{statusCode:s}=await e.request.raw(t,{method:"HEAD"});return s===200},P=async(e,t,s)=>{if(!(e.platform instanceof fandom.Fandom))return [];if(!await F(e))return [];let o=e,L=await o.custom.wikia.DiscussionPostController.getPosts(),W=t.getTime(),U=s.getTime(),D=L._embedded["doc:posts"].filter(n=>{let m=n.creationDate.epochSecond*1e3;return m>=W&&m<=U}),M=D.filter(n=>n._embedded.thread?.[0].containerType===fandom.DiscussionsAPI.ContainerTypes.ArticleComment).map(n=>n._embedded.thread?.[0].containerId).filter(Boolean),S=await o.custom.wikia.FeedsAndPostsController.getArticleNamesAndUsernames(M),q=Object.entries(S.articleNames).reduce((n,[m,_])=>(n[m]=_.title,n),{});return D.map(n=>{if(n._embedded.thread?.[0].containerType===fandom.DiscussionsAPI.ContainerTypes.ArticleComment){let m=n._embedded.thread[0].containerId;n._embedded.thread[0].containerId=q[m]??m;}return n})};var w=async(e,t,s)=>{let i=new Set(["block/block","block/reblock","block/unblock","delete/delete","delete/restore","move/move","protect/protect","protect/modify","protect/unprotect","rights/rights","upload/upload","upload/overwrite","upload/revert","thanks/thank"]);return (await e.queryList({ledir:"newer",leend:s.toISOString(),lelimit:"max",leprop:["comment","details","ids","tags","timestamp","title","type","user","userid"],lestart:t.toISOString(),list:"logevents"})).filter(a=>i.has(`${a.type}/${a.action}`))};var A=(e,t,s)=>e.queryList({list:"recentchanges",rcdir:"newer",rcend:s.toISOString(),rclimit:"max",rcprop:["comment","ids","redirect","sizes","timestamp","title","user","flags"],rcshow:"!bot",rcstart:t.toISOString(),rctype:["edit","new"]});var N={block:y,delete:f,move:I,protect:b,rights:v,upload:x},T=e=>e.isDiscussions()?e.data.creationDate.epochSecond*1e3:e.isLogEvents()||e.isRecentChanges()?e.date.getTime():Date.now(),Jt=async(e,t,s)=>{let i=[];for(let o of await A(e,t,s))i.push(new k(e,o));for(let o of await w(e,t,s)){let a=N[o.type]??r;i.push(new a(e,o));}for(let o of await P(e,t,s)){let a=o._embedded.thread?.[0].containerType;a===fandom.DiscussionsAPI.ContainerTypes.ArticleComment?i.push(new d(e,o)):a===fandom.DiscussionsAPI.ContainerTypes.Forum?i.push(new g(e,o)):i.push(new h(e,o));}return i.sort((o,a)=>T(o)-T(a))};
+
+exports.ActivityItem = c;
+exports.ActivityType = u;
+exports.BlockEventItem = y;
+exports.CommentItem = d;
+exports.DeleteEventItem = f;
+exports.DiscussionsItem = p;
+exports.LogEventsItem = r;
+exports.MessageWallItem = h;
+exports.MoveEventItem = I;
+exports.PostItem = g;
+exports.ProtectEventItem = b;
+exports.RecentChangesItem = k;
+exports.RightsEventItem = v;
+exports.ThanksEventItem = E;
+exports.UploadEventItem = x;
+exports.getActivity = Jt;
+exports.getActivityDate = T;
+exports.getLogEvents = w;
+exports.getRecentChanges = A;
+exports.getSocialActivity = P;
+//# sourceMappingURL=out.js.map
 //# sourceMappingURL=main.js.map
