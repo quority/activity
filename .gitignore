@@ -8,6 +8,5 @@
 !.yarn/sdks
 !.yarn/versions
 demo
-dist
 node_modules
 tsconfig.tsbuildinfo

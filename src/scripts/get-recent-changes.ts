@@ -11,6 +11,6 @@ export const getRecentChanges = ( wiki: Wiki, from: Date, to: Date ) => wiki.que
 	rcshow: '!bot',
 	rcstart: from.toISOString(),
 	rctype: [
-		'categorize', 'edit', 'new'
+		'edit', 'new'
 	]
 } )
